@@ -2,7 +2,7 @@
   "name": "markdown-editor",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://aboudicheng.github.io/markdown-editor/",
+  "homepage": "https://pingcheng.me/Markdown-Editor/",
   "dependencies": {
     "bootstrap": "^4.1.3",
     "gh-pages": "^1.2.0",

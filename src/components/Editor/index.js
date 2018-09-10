@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Label, Input } from 'reactstrap';
+import { Label, Input, Button, Alert } from 'reactstrap';
 import marked from 'marked';
 
 class Editor extends Component {
@@ -7,7 +7,8 @@ class Editor extends Component {
         super();
 
         this.state = {
-            text: ""
+            text: "",
+            alert: false,
         }
     }
 
@@ -23,8 +24,28 @@ class Editor extends Component {
         localStorage.setItem('text', e.target.value);
     }
 
+    handleCopy = () => {
+        //Make sure the text is not empty
+        if (this.state.text !== "") {
+            //Select all texts from textarea
+            document.getElementById('edit').select();
+
+            //Copy those texts
+            document.execCommand('copy');
+
+            //Deselect texts
+            window.getSelection().removeAllRanges()
+
+            this.setState({ alert: true });
+        }
+    }
+
+    handleClose = () => {
+        this.setState({ alert: false });
+    }
+
     render() {
-        const { text } = this.state;
+        const { text, alert } = this.state;
         return (
             <div className="container">
                 <div id="editor">
@@ -38,6 +59,12 @@ class Editor extends Component {
                         style={{ height: 200 }}
                     />
                 </div>
+
+                {alert && <Alert color="info" toggle={this.handleClose}>
+                    Copied Successfully!
+                </Alert>}
+                <Button color="info" onClick={this.handleCopy}>Copy to clipboard</Button>
+
                 <div id="preview">
                     <Label for="preview" style={{ fontWeight: "bold" }}>Preview</Label>
                     <div dangerouslySetInnerHTML={{ __html: marked(text) }}></div>
