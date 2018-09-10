@@ -46,10 +46,15 @@ class Editor extends Component {
 
     render() {
         const { text, alert } = this.state;
+        const title = {
+            fontWeight: "bold",
+            textDecoration: "underline",
+        }
+        
         return (
             <div className="container">
                 <div id="editor">
-                    <Label for="editor" style={{ fontWeight: "bold" }}>Editor</Label>
+                    <Label for="editor" style={title}>Editor</Label>
                     <Input
                         type="textarea"
                         name="text"
@@ -66,7 +71,7 @@ class Editor extends Component {
                 <Button color="info" onClick={this.handleCopy}>Copy to clipboard</Button>
 
                 <div id="preview">
-                    <Label for="preview" style={{ fontWeight: "bold" }}>Preview</Label>
+                    <Label for="preview" style={title}>Preview</Label>
                     <div dangerouslySetInnerHTML={{ __html: marked(text) }}></div>
                 </div>
             </div>
